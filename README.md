@@ -1,4 +1,5 @@
 Sanhitha Reddy | Portfolio
+
 🌟 Overview
 
 This is my personal portfolio website.
@@ -46,6 +47,6 @@ GitHub: github.com/sanhithareddy1
 
 ⚡ Technologies Used
 
-HTML, CSS, JavaScript
+HTML, CSS
 
 GitHub Pages (for hosting)
