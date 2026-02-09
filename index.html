@@ -287,7 +287,6 @@
     }
   </style>
 
-  <!-- Structured data (helps Google/recruiters) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -347,7 +346,6 @@
           </p>
 
           <div class="hero-actions">
-            <!-- 1) Put your resume PDF at: /assets/Sanhitha_Reddy_Resume.pdf (or change this link) -->
             <a class="btn" href="assets/Sanhitha_Reddy_Resume.pdf" target="_blank" rel="noopener">
               Download Resume <span class="kbd">PDF</span>
             </a>
@@ -502,7 +500,7 @@
       <div class="section-head">
         <div>
           <h2>Experience</h2>
-          <p>Short, impact-focused bullets (this is how recruiters skim).</p>
+          <p>Short.</p>
         </div>
       </div>
 
@@ -547,7 +545,7 @@
         <div>
           <h2>Projects</h2>
           <p>
-            Featured projects are verified from GitHub (only real repos will show). Below that, your latest public repos are loaded automatically.
+            Featured projects are verified from GitHub.
           </p>
         </div>
       </div>
@@ -563,7 +561,7 @@
       <div id="reposGrid" class="projects-grid" aria-live="polite"></div>
 
       <div class="muted" style="margin-top:14px;">
-        Tip: Recruiters love seeing <b>README screenshots</b>, <b>live demos</b>, and a <b>short “Architecture” section</b> for each project.
+        project.
       </div>
     </div>
   </section>
@@ -574,7 +572,6 @@
       <div class="section-head">
         <div>
           <h2>Contact</h2>
-          <p>Make it effortless to reach you (one click).</p>
         </div>
       </div>
 
@@ -582,10 +579,9 @@
         <div class="tile">
           <h3 style="margin:0 0 10px;">Email</h3>
           <p class="muted" style="margin:0;">
-            <a class="link" href="mailto:sanhitha@buffalo.edu">sanhitha@buffalo.edu</a>
+            <a class="link" href="mailto:sanhitha.172@gmail.com">sanhitha.172@gmail.com</a>
           </p>
           <div class="tags">
-            <span class="tag">Fast response</span>
             <span class="tag">Open to interviews</span>
           </div>
         </div>
@@ -736,7 +732,6 @@
     async function loadRecent(){
       const grid = document.getElementById("reposGrid");
 
-      // sort=updated ensures this stays fresh for recruiters
       const repos = await fetchJSON(
         `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
       );
