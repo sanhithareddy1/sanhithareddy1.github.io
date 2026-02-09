@@ -1,113 +1,780 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sanhitha Reddy | Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <title>Sanhitha Reddy Manikanti | Software Engineer</title>
+  <meta name="description" content="Sanhitha Reddy Manikanti — Software Engineer (Backend + Cloud + Distributed/ML pipelines). Python, Node.js, FastAPI, AWS, Docker, SQL." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sanhitha Reddy Manikanti | Software Engineer" />
+  <meta property="og:description" content="Backend + Cloud + Distributed/ML pipelines. Python, Node.js, FastAPI, AWS, Docker, SQL." />
+  <meta property="og:type" content="website" />
+
+  <!-- Minimal, clean system font stack -->
   <style>
-    /* General Styles */
-    body {
-      font-family: Arial, sans-serif;
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.88);
+      --muted: rgba(255,255,255,0.68);
+      --faint: rgba(255,255,255,0.12);
+      --brand: #7dd3fc; /* light cyan */
+      --brand2: #a78bfa; /* violet */
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --shadow: 0 18px 50px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1100px;
+    }
+
+    /* Light mode (optional) */
+    [data-theme="light"]{
+      --bg: #f6f7fb;
+      --panel: rgba(2,6,23,0.06);
+      --panel2: rgba(2,6,23,0.10);
+      --text: rgba(2,6,23,0.88);
+      --muted: rgba(2,6,23,0.68);
+      --faint: rgba(2,6,23,0.12);
+      --shadow: 0 18px 40px rgba(2,6,23,0.10);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(125, 211, 252, 0.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(167, 139, 250, 0.16), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height:1.6;
+    }
+    a{ color:inherit; text-decoration:none; }
+    a.link{ color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* Top nav */
+    .nav{
+      position: sticky; top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.02));
+      border-bottom: 1px solid var(--faint);
+    }
+    [data-theme="light"] .nav{
+      background: linear-gradient(to bottom, rgba(255,255,255,0.75), rgba(255,255,255,0.20));
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 240px;
+    }
+    .logo{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 25%, var(--brand), var(--brand2));
+      box-shadow: var(--shadow);
+    }
+    .brand-title{ font-weight: 750; letter-spacing:0.2px; }
+    .brand-sub{ display:block; font-size: 12px; color: var(--muted); margin-top: -2px; }
+
+    .nav-links{
+      display:flex; gap: 14px; flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .pill{
+      padding: 8px 12px;
+      border: 1px solid var(--faint);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--muted);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); }
+    [data-theme="light"] .pill{ background: rgba(2,6,23,0.03); }
+    [data-theme="light"] .pill:hover{ background: rgba(2,6,23,0.06); }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(135deg, rgba(125,211,252,0.18), rgba(167,139,250,0.16));
+      color: var(--text);
+      font-weight: 650;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, filter .15s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+    .btn.secondary{
+      box-shadow:none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--faint);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero{ padding: 64px 0 24px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 22px;
+      align-items: start;
+    }
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+    }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--faint);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-main{ padding: 26px; }
+    .kicker{
+      display:inline-flex; gap: 10px; align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--faint);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 999px; background: var(--ok);
+      box-shadow: 0 0 0 6px rgba(52,211,153,0.12);
+    }
+    h1{
       margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      background: #f4f4f4;
-      color: #333;
+      font-size: clamp(28px, 3.3vw, 44px);
+      line-height: 1.18;
+      letter-spacing: -0.6px;
     }
-    a { text-decoration: none; color: #0077cc; }
-    h1, h2 { color: #333; }
+    .lead{ color: var(--muted); margin: 12px 0 18px; font-size: 16px; max-width: 64ch; }
+    .hero-actions{ display:flex; gap: 12px; flex-wrap: wrap; }
 
-    /* Header */
-    header {
-      background: #0077cc;
-      color: white;
-      padding: 40px 0;
-      text-align: center;
-    }
-    header h1 { margin: 0; font-size: 2.5em; }
-    header p { margin: 5px 0 0; font-size: 1.2em; }
+    .hero-side{ padding: 18px; }
+    .side-block{ padding: 14px; border-radius: var(--radius2); border: 1px solid var(--faint); background: rgba(255,255,255,0.04); }
+    .side-title{ font-weight: 750; margin: 0 0 6px; }
+    .side-meta{ margin: 0; color: var(--muted); font-size: 14px; }
+    .sep{ height: 12px; }
 
-    /* Sections */
-    section {
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: auto;
+    /* Section layout */
+    section{ padding: 34px 0; }
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 16px; margin-bottom: 14px;
     }
-    .projects {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
+    .section-head h2{ margin: 0; font-size: 22px; letter-spacing:-0.2px; }
+    .section-head p{ margin:0; color: var(--muted); font-size: 14px; max-width: 70ch; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    .project-card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      flex: 1 1 250px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+    @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+
+    .tile{
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--faint);
+      background: var(--panel);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
-    .project-card:hover { transform: translateY(-5px); }
+    .tile:hover{ transform: translateY(-2px); background: rgba(255,255,255,0.075); border-color: rgba(255,255,255,0.18); }
+
+    .tags{ display:flex; flex-wrap:wrap; gap: 8px; margin-top: 10px; }
+    .tag{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--faint);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+    }
+
+    /* Projects */
+    .projects-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 980px){ .projects-grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 640px){ .projects-grid{ grid-template-columns: 1fr;} }
+
+    .proj{
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--faint);
+      background: var(--panel);
+      position: relative;
+      overflow: hidden;
+      min-height: 180px;
+    }
+    .proj::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 140px at 10% 10%, rgba(125,211,252,0.12), transparent 60%),
+                  radial-gradient(600px 140px at 90% 0%, rgba(167,139,250,0.12), transparent 55%);
+      opacity: 0;
+      transition: opacity .2s ease;
+      pointer-events:none;
+    }
+    .proj:hover::before{ opacity: 1; }
+    .proj-top{ display:flex; align-items:flex-start; justify-content:space-between; gap: 10px; position:relative; }
+    .proj h3{ margin:0; font-size: 16px; letter-spacing:-0.1px; }
+    .proj p{ margin: 8px 0 12px; color: var(--muted); font-size: 14px; position:relative; }
+    .proj-links{ display:flex; gap: 10px; flex-wrap:wrap; position:relative; }
+    .mini{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--faint);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .stat{
+      font-size: 12px; color: var(--muted);
+      border: 1px solid var(--faint);
+      padding: 6px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      white-space:nowrap;
+    }
+    .proj-badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px; position:relative; }
 
     /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #222;
-      color: white;
+    footer{
+      padding: 28px 0 40px;
+      color: var(--muted);
+      border-top: 1px solid var(--faint);
+      margin-top: 30px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Small helpers */
+    .muted{ color: var(--muted); }
+    .hide{ display:none !important; }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--faint);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
     }
   </style>
-</head>
-<body>
 
-  <!-- Header -->
-  <header>
-    <h1>Hello 👋 I'm Sanhitha Reddy</h1>
-    <p>Computer Science Graduate | ML, CV & Web Developer</p>
+  <!-- Structured data (helps Google/recruiters) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sanhitha Reddy Manikanti",
+    "jobTitle": "Software Engineer",
+    "address": { "@type": "PostalAddress", "addressLocality": "Buffalo", "addressRegion": "NY" },
+    "knowsAbout": ["Backend Engineering", "Cloud", "Distributed Systems", "Machine Learning Pipelines", "DevOps"],
+    "sameAs": ["https://github.com/sanhithareddy1"]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="wrap">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div class="brand-title">Sanhitha Reddy</div>
+            <span class="brand-sub">Software Engineer • Backend + Cloud</span>
+          </div>
+        </div>
+
+        <div class="nav-links" aria-label="Primary navigation">
+          <a class="pill" href="#about">About</a>
+          <a class="pill" href="#skills">Skills</a>
+          <a class="pill" href="#experience">Experience</a>
+          <a class="pill" href="#projects">Projects</a>
+          <a class="pill" href="#contact">Contact</a>
+          <button id="themeBtn" class="pill" type="button" aria-label="Toggle theme">Theme</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="card hero-main">
+          <div class="kicker">
+            <span class="dot" aria-hidden="true"></span>
+            Open to Software Engineering roles • Backend / Cloud / Full-Stack
+          </div>
+
+          <h1>
+            I build reliable backend systems, cloud-backed services,
+            and reproducible data/ML pipelines.
+          </h1>
+
+          <p class="lead">
+            CS graduate student in Buffalo focused on production-grade engineering:
+            APIs, distributed processing, Dockerized deployments, and clean documentation.
+          </p>
+
+          <div class="hero-actions">
+            <!-- 1) Put your resume PDF at: /assets/Sanhitha_Reddy_Resume.pdf (or change this link) -->
+            <a class="btn" href="assets/Sanhitha_Reddy_Resume.pdf" target="_blank" rel="noopener">
+              Download Resume <span class="kbd">PDF</span>
+            </a>
+            <a class="btn secondary" href="#projects">View Projects</a>
+            <a class="btn secondary" id="githubBtn" href="https://github.com/sanhithareddy1" target="_blank" rel="noopener">
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <aside class="card hero-side">
+          <div class="side-block">
+            <p class="side-title">Quick summary</p>
+            <p class="side-meta">
+              Backend (Node/Express, FastAPI), AWS (EC2/S3/Lambda), Docker, SQL/NoSQL, and distributed systems.
+            </p>
+            <div class="sep"></div>
+            <p class="side-meta">
+              Recent focus: scalable services, CI/CD basics, and observability-friendly pipelines.
+            </p>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="side-block">
+            <p class="side-title">Location</p>
+            <p class="side-meta">Buffalo, NY</p>
+            <div class="sep"></div>
+            <p class="side-title">Primary stack</p>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">Node.js</span><span class="tag">FastAPI</span>
+              <span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
   </header>
 
-  <!-- About Me -->
+  <!-- ABOUT -->
   <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I'm a passionate Computer Science graduate with experience in Machine Learning, Computer Vision, and Web Development. I enjoy building projects that solve real-world problems and learning new technologies every day.
-    </p>
-    <p><strong>Skills:</strong> Python, PyTorch, OpenCV, HTML, CSS, JavaScript, React</p>
-  </section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>About</h2>
+          <p>
+            I’m a Software Engineer with experience building scalable, cloud-backed applications and distributed ML pipelines,
+            with a strong focus on reliability, documentation, and clean engineering practices.
+          </p>
+        </div>
+        <div class="muted">Last updated: <span id="lastUpdated"></span></div>
+      </div>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project-card">
-        <h3>ML Project</h3>
-        <p>Implemented a VAE-GAN model for image generation.</p>
-        <a href="#">View on GitHub</a>
-      </div>
-      <div class="project-card">
-        <h3>Computer Vision Project</h3>
-        <p>Camera calibration and object detection with OpenCV.</p>
-        <a href="#">View on GitHub</a>
-      </div>
-      <div class="project-card">
-        <h3>Web Project</h3>
-        <p>Portfolio website built using HTML, CSS, and JavaScript.</p>
-        <a href="https://github.com/sanhithareddy1/movie_booking">View on GitHub</a>
+      <div class="grid">
+        <div class="tile">
+          <h3 style="margin:0 0 6px;">What I’m best at</h3>
+          <p class="muted" style="margin:0;">
+            Designing API-first services, containerizing & deploying, and building pipelines that are reproducible,
+            observable, and easy for teams to maintain.
+          </p>
+          <div class="tags">
+            <span class="tag">REST APIs</span>
+            <span class="tag">Distributed systems</span>
+            <span class="tag">Automation</span>
+            <span class="tag">Observability</span>
+            <span class="tag">Documentation</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3 style="margin:0 0 6px;">What I’m looking for</h3>
+          <p class="muted" style="margin:0;">
+            Entry-level Software Engineer roles where I can ship backend features, improve performance and reliability,
+            and work closely with product + engineering teams.
+          </p>
+          <div class="tags">
+            <span class="tag">Backend</span>
+            <span class="tag">Cloud</span>
+            <span class="tag">Full-stack</span>
+            <span class="tag">Data/ML systems</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Skills</h2>
+          <p>Recruiters scan fast — so this is grouped exactly how most job descriptions are written.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="tile">
+          <h3 style="margin:0 0 10px;">Backend & APIs</h3>
+          <div class="tags">
+            <span class="tag">Node.js (Express)</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Django REST</span>
+            <span class="tag">RESTful APIs</span>
+            <span class="tag">Authentication (JWT)</span>
+            <span class="tag">Testing (basic)</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3 style="margin:0 0 10px;">Cloud & DevOps</h3>
+          <div class="tags">
+            <span class="tag">AWS EC2</span>
+            <span class="tag">AWS S3</span>
+            <span class="tag">AWS Lambda</span>
+            <span class="tag">Docker</span>
+            <span class="tag">CI/CD (basic)</span>
+            <span class="tag">Linux</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3 style="margin:0 0 10px;">Data & Systems</h3>
+          <div class="tags">
+            <span class="tag">Distributed Systems</span>
+            <span class="tag">Kafka</span>
+            <span class="tag">Data Processing</span>
+            <span class="tag">Automation</span>
+            <span class="tag">Observability</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3 style="margin:0 0 10px;">Languages & Databases</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">C++</span>
+            <span class="tag">SQL</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Experience</h2>
+          <p>Short, impact-focused bullets (this is how recruiters skim).</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="tile">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0;">Research Assistant — University at Buffalo</h3>
+              <div class="muted" style="font-size:14px;">Dec 2024 – Dec 2025</div>
+            </div>
+            <div class="stat">ML pipelines • Automation • Reproducibility</div>
+          </div>
+          <ul class="muted" style="margin:12px 0 0; padding-left:18px;">
+            <li>Built/operated distributed ML workflows for preprocessing, evaluation, and reproducible experimentation.</li>
+            <li>Automated data flow + logging/metrics for better observability and faster iteration.</li>
+            <li>Collaborated through design reviews, documentation, and Git-based workflows.</li>
+          </ul>
+        </div>
+
+        <div class="tile">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0;">Data Science Intern — Code Clause</h3>
+              <div class="muted" style="font-size:14px;">Sep 2023 – Dec 2023</div>
+            </div>
+            <div class="stat">Python • SQL • Modeling</div>
+          </div>
+          <ul class="muted" style="margin:12px 0 0; padding-left:18px;">
+            <li>Cleaned/transformed 50K+ records using Python + SQL to improve data quality for modeling.</li>
+            <li>Built predictive models and dashboards to support decisions with measurable accuracy improvements.</li>
+            <li>Used Git workflows to keep ML experiments reproducible across environments.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Projects</h2>
+          <p>
+            Featured projects are verified from GitHub (only real repos will show). Below that, your latest public repos are loaded automatically.
+          </p>
+        </div>
+      </div>
+
+      <!-- Featured (only renders if repos exist) -->
+      <div id="featuredWrap" class="hide">
+        <div class="muted" style="margin: 6px 0 10px;">Featured</div>
+        <div id="featuredGrid" class="projects-grid"></div>
+        <div style="height:18px;"></div>
+      </div>
+
+      <div class="muted" style="margin: 6px 0 10px;">Latest from GitHub</div>
+      <div id="reposGrid" class="projects-grid" aria-live="polite"></div>
+
+      <div class="muted" style="margin-top:14px;">
+        Tip: Recruiters love seeing <b>README screenshots</b>, <b>live demos</b>, and a <b>short “Architecture” section</b> for each project.
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
   <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:sanhitha.172@gmail.com">sanhitha.172@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/sanhithareddy1">github.com/sanhithareddy1</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/sanhitha-reddy/">LinkedIn</a></p>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Contact</h2>
+          <p>Make it effortless to reach you (one click).</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="tile">
+          <h3 style="margin:0 0 10px;">Email</h3>
+          <p class="muted" style="margin:0;">
+            <a class="link" href="mailto:sanhitha@buffalo.edu">sanhitha@buffalo.edu</a>
+          </p>
+          <div class="tags">
+            <span class="tag">Fast response</span>
+            <span class="tag">Open to interviews</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3 style="margin:0 0 10px;">Links</h3>
+          <p class="muted" style="margin:0 0 6px;">
+            GitHub: <a class="link" href="https://github.com/sanhithareddy1" target="_blank" rel="noopener">github.com/sanhithareddy1</a>
+          </p>
+          <p class="muted" style="margin:0;">
+            LinkedIn: <a class="link" href="https://www.linkedin.com/" target="_blank" rel="noopener">Add your LinkedIn URL here</a>
+          </p>
+          <div class="muted" style="font-size:13px; margin-top:10px;">
+            (Update LinkedIn URL above — I left a placeholder so you don’t accidentally link the wrong profile.)
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer>
-    <p>© 2025 Sanhitha Reddy. All Rights Reserved.</p>
+    <div class="wrap">
+      <div class="foot">
+        <div>© <span id="year"></span> Sanhitha Reddy Manikanti</div>
+        <div class="muted">
+          Built on GitHub Pages • <a class="link" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Back to top</a>
+        </div>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    /* =========================
+       CONFIG — EDIT THESE
+    ========================= */
+    const GITHUB_USERNAME = "sanhithareddy1";
+
+    // Only these repos will appear in "Featured" (and ONLY if they exist on GitHub)
+    const FEATURED_REPOS = [
+      "job_search",
+      "wikilens",
+      "movie_booking",
+      "skillgapanalysis"
+    ];
+
+    // How many recent repos to show (excluding forks by default)
+    const RECENT_REPOS_LIMIT = 9;
+
+    // Optional: show forks in recent list (set true if you want to show them)
+    const INCLUDE_FORKS_IN_RECENT = false;
+
+    /* =========================
+       THEME TOGGLE
+    ========================= */
+    const themeBtn = document.getElementById("themeBtn");
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+
+    themeBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "light" ? "" : "light";
+      if (next) document.documentElement.setAttribute("data-theme", next);
+      else document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", next || "");
+    });
+
+    /* =========================
+       DATE FOOTER
+    ========================= */
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+
+    /* =========================
+       GITHUB API HELPERS
+    ========================= */
+    async function fetchJSON(url){
+      const res = await fetch(url, { headers: { "Accept": "application/vnd.github+json" }});
+      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+      return res.json();
+    }
+
+    function el(tag, attrs = {}, children = []){
+      const node = document.createElement(tag);
+      for (const [k,v] of Object.entries(attrs)){
+        if (k === "class") node.className = v;
+        else if (k.startsWith("on") && typeof v === "function") node.addEventListener(k.substring(2), v);
+        else node.setAttribute(k, v);
+      }
+      for (const child of children){
+        if (typeof child === "string") node.appendChild(document.createTextNode(child));
+        else if (child) node.appendChild(child);
+      }
+      return node;
+    }
+
+    function repoCard(repo){
+      const lang = repo.language || "—";
+      const desc = repo.description || "No description yet — add one in GitHub to make this look stronger.";
+      const stars = repo.stargazers_count ?? 0;
+      const forks = repo.forks_count ?? 0;
+
+      // Add your live demo link in repo homepage field OR in README; this pulls homepage automatically.
+      const demo = repo.homepage && repo.homepage.trim().length ? repo.homepage.trim() : "";
+
+      const topRight = el("div", { class:"proj-badges" }, [
+        el("span", { class:"stat" }, [`★ ${stars}`]),
+        el("span", { class:"stat" }, [`⑂ ${forks}`]),
+        el("span", { class:"stat" }, [lang])
+      ]);
+
+      const links = el("div", { class:"proj-links" }, [
+        el("a", { class:"mini", href: repo.html_url, target:"_blank", rel:"noopener" }, ["View Code ↗"]),
+        demo ? el("a", { class:"mini", href: demo, target:"_blank", rel:"noopener" }, ["Live Demo ↗"]) : null
+      ].filter(Boolean));
+
+      return el("article", { class:"proj" }, [
+        el("div", { class:"proj-top" }, [
+          el("div", {}, [
+            el("h3", {}, [repo.name]),
+            el("p", {}, [desc])
+          ]),
+          topRight
+        ]),
+        links
+      ]);
+    }
+
+    async function loadFeatured(){
+      const featuredWrap = document.getElementById("featuredWrap");
+      const featuredGrid = document.getElementById("featuredGrid");
+
+      const lookups = await Promise.allSettled(
+        FEATURED_REPOS.map(name =>
+          fetchJSON(`https://api.github.com/repos/${GITHUB_USERNAME}/${name}`)
+        )
+      );
+
+      const repos = lookups
+        .filter(r => r.status === "fulfilled")
+        .map(r => r.value);
+
+      if (repos.length === 0) return; // show nothing if none exist
+
+      featuredWrap.classList.remove("hide");
+      repos.forEach(repo => featuredGrid.appendChild(repoCard(repo)));
+    }
+
+    async function loadRecent(){
+      const grid = document.getElementById("reposGrid");
+
+      // sort=updated ensures this stays fresh for recruiters
+      const repos = await fetchJSON(
+        `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+      );
+
+      const filtered = repos
+        .filter(r => INCLUDE_FORKS_IN_RECENT ? true : !r.fork)
+        .slice(0, RECENT_REPOS_LIMIT);
+
+      if (!filtered.length){
+        grid.appendChild(
+          el("div", { class:"tile" }, [
+            el("h3", {}, ["No public repos found"]),
+            el("p", { class:"muted" }, ["Make at least one repo public to show it here."])
+          ])
+        );
+        return;
+      }
+
+      filtered.forEach(repo => grid.appendChild(repoCard(repo)));
+    }
+
+    (async function init(){
+      try{
+        await loadFeatured();
+        await loadRecent();
+      }catch(err){
+        const grid = document.getElementById("reposGrid");
+        grid.appendChild(
+          el("div", { class:"tile" }, [
+            el("h3", {}, ["Couldn’t load GitHub projects"]),
+            el("p", { class:"muted" }, [
+              "Sometimes GitHub API rate limits. Refresh in a minute, or open your GitHub profile directly."
+            ])
+          ])
+        );
+        console.error(err);
+      }
+    })();
+  </script>
 </body>
 </html>
