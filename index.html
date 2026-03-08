@@ -515,7 +515,7 @@
               <h3 style="margin:0;">Research Assistant — University at Buffalo A2IL</h3>
               <div class="muted" style="font-size:14px;">Feb 2026 – Present</div>
             </div>
-            <div class="stat">ML pipelines • Automation • Reproducibility</div>
+            <div class="stat">.</div>
           </div>
           <ul class="muted" style="margin:12px 0 0; padding-left:18px;">
             <li>Built a Faculty Monitoring System to track research publications, grants, and academic activities across the department.</li>
@@ -530,7 +530,7 @@
               <h3 style="margin:0;">Software Engineer – Full Stack | Optum Health</h3>
               <div class="muted" style="font-size:14px;">July 2022 – Aug 2024</div>
             </div>
-            <div class="stat">Python • SQL • Modeling</div>
+            <div class="stat"> • </div>
           </div>
 
 <ul>
@@ -562,10 +562,87 @@ Integrated backend services with enterprise automation platforms such as <b>Blad
         <div>
           <h2>Projects</h2>
           <p>
-            Featured projects are verified from GitHub.
-          </p>
-        </div>
+            <p>Selected engineering projects.</p>
       </div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <article class="proj">
+        <div class="proj-top">
+          <div>
+            <h3>Infrastructure Automation Workflow Engine</h3>
+            <p>
+              Full-stack platform for designing and executing infrastructure
+              automation workflows through a visual interface.
+              Built using React, Node.js, and REST APIs to manage job scheduling,
+              workflow orchestration, and task execution.
+            </p>
+          </div>
+          <div class="proj-badges">
+            <span class="stat">React</span>
+            <span class="stat">Node.js</span>
+            <span class="stat">MySQL</span>
+          </div>
+        </div>
+
+        <div class="proj-links">
+          <a class="mini" href="https://github.com/sanhithareddy1/job_search" target="_blank">View Code ↗</a>
+        </div>
+      </article>
+
+       <!-- Project 2 -->
+      <article class="proj">
+        <div class="proj-top">
+          <div>
+            <h3>AI Document Intelligence Platform</h3>
+            <p>
+              Built an AI-powered document question-answering system using
+              retrieval-augmented generation architecture.
+              Backend services process documents, generate embeddings,
+              and perform semantic search for contextual answers.
+            </p>
+          </div>
+          <div class="proj-badges">
+            <span class="stat">Python</span>
+            <span class="stat">FastAPI</span>
+            <span class="stat">Vector Search</span>
+          </div>
+        </div>
+
+        <div class="proj-links">
+          <a class="mini" href="https://github.com/sanhithareddy1/generative-models-benchmark" target="_blank">View Code ↗</a>
+        </div>
+      </article>
+
+       <!-- Project 3 -->
+      <article class="proj">
+        <div class="proj-top">
+          <div>
+            <h3>Skill Gap Analysis Tool</h3>
+            <p>
+              Web tool that analyzes job descriptions and compares them with
+              candidate skills to identify missing competencies.
+              Helps users understand learning priorities and career readiness.
+            </p>
+          </div>
+          <div class="proj-badges">
+            <span class="stat">JavaScript</span>
+            <span class="stat">Text Processing</span>
+            <span class="stat">Web App</span>
+          </div>
+        </div>
+
+        <div class="proj-links">
+          <a class="mini" href="https://github.com/sanhithareddy1/skillgapanalysis" target="_blank">View Code ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 
       <!-- Featured (only renders if repos exist) -->
       <div id="featuredWrap" class="hide">
@@ -634,159 +711,8 @@ Integrated backend services with enterprise automation platforms such as <b>Blad
     /* =========================
        CONFIG — EDIT THESE
     ========================= */
-    const GITHUB_USERNAME = "sanhithareddy1";
-
-    // Only these repos will appear in "Featured" (and ONLY if they exist on GitHub)
-    const FEATURED_REPOS = [
-      "job_search",
-      "wikilens",
-      "movie_booking",
-      "skillgapanalysis"
-    ];
-
-    // How many recent repos to show (excluding forks by default)
-    const RECENT_REPOS_LIMIT = 9;
-
-    // Optional: show forks in recent list (set true if you want to show them)
-    const INCLUDE_FORKS_IN_RECENT = false;
-
-    /* =========================
-       THEME TOGGLE
-    ========================= */
-    const themeBtn = document.getElementById("themeBtn");
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
-
-    themeBtn.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      const next = current === "light" ? "" : "light";
-      if (next) document.documentElement.setAttribute("data-theme", next);
-      else document.documentElement.removeAttribute("data-theme");
-      localStorage.setItem("theme", next || "");
-    });
-
-    /* =========================
-       DATE FOOTER
-    ========================= */
-    document.getElementById("year").textContent = new Date().getFullYear();
-    document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
-
-    /* =========================
-       GITHUB API HELPERS
-    ========================= */
-    async function fetchJSON(url){
-      const res = await fetch(url, { headers: { "Accept": "application/vnd.github+json" }});
-      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-      return res.json();
-    }
-
-    function el(tag, attrs = {}, children = []){
-      const node = document.createElement(tag);
-      for (const [k,v] of Object.entries(attrs)){
-        if (k === "class") node.className = v;
-        else if (k.startsWith("on") && typeof v === "function") node.addEventListener(k.substring(2), v);
-        else node.setAttribute(k, v);
-      }
-      for (const child of children){
-        if (typeof child === "string") node.appendChild(document.createTextNode(child));
-        else if (child) node.appendChild(child);
-      }
-      return node;
-    }
-
-    function repoCard(repo){
-      const lang = repo.language || "—";
-      const desc = repo.description || "No description yet — add one in GitHub to make this look stronger.";
-      const stars = repo.stargazers_count ?? 0;
-      const forks = repo.forks_count ?? 0;
-
-      // Add your live demo link in repo homepage field OR in README; this pulls homepage automatically.
-      const demo = repo.homepage && repo.homepage.trim().length ? repo.homepage.trim() : "";
-
-      const topRight = el("div", { class:"proj-badges" }, [
-        el("span", { class:"stat" }, [`★ ${stars}`]),
-        el("span", { class:"stat" }, [`⑂ ${forks}`]),
-        el("span", { class:"stat" }, [lang])
-      ]);
-
-      const links = el("div", { class:"proj-links" }, [
-        el("a", { class:"mini", href: repo.html_url, target:"_blank", rel:"noopener" }, ["View Code ↗"]),
-        demo ? el("a", { class:"mini", href: demo, target:"_blank", rel:"noopener" }, ["Live Demo ↗"]) : null
-      ].filter(Boolean));
-
-      return el("article", { class:"proj" }, [
-        el("div", { class:"proj-top" }, [
-          el("div", {}, [
-            el("h3", {}, [repo.name]),
-            el("p", {}, [desc])
-          ]),
-          topRight
-        ]),
-        links
-      ]);
-    }
-
-    async function loadFeatured(){
-      const featuredWrap = document.getElementById("featuredWrap");
-      const featuredGrid = document.getElementById("featuredGrid");
-
-      const lookups = await Promise.allSettled(
-        FEATURED_REPOS.map(name =>
-          fetchJSON(`https://api.github.com/repos/${GITHUB_USERNAME}/${name}`)
-        )
-      );
-
-      const repos = lookups
-        .filter(r => r.status === "fulfilled")
-        .map(r => r.value);
-
-      if (repos.length === 0) return; // show nothing if none exist
-
-      featuredWrap.classList.remove("hide");
-      repos.forEach(repo => featuredGrid.appendChild(repoCard(repo)));
-    }
-
-    async function loadRecent(){
-      const grid = document.getElementById("reposGrid");
-
-      const repos = await fetchJSON(
-        `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
-      );
-
-      const filtered = repos
-        .filter(r => INCLUDE_FORKS_IN_RECENT ? true : !r.fork)
-        .slice(0, RECENT_REPOS_LIMIT);
-
-      if (!filtered.length){
-        grid.appendChild(
-          el("div", { class:"tile" }, [
-            el("h3", {}, ["No public repos found"]),
-            el("p", { class:"muted" }, ["Make at least one repo public to show it here."])
-          ])
-        );
-        return;
-      }
-
-      filtered.forEach(repo => grid.appendChild(repoCard(repo)));
-    }
-
-    (async function init(){
-      try{
-        await loadFeatured();
-        await loadRecent();
-      }catch(err){
-        const grid = document.getElementById("reposGrid");
-        grid.appendChild(
-          el("div", { class:"tile" }, [
-            el("h3", {}, ["Couldn’t load GitHub projects"]),
-            el("p", { class:"muted" }, [
-              "Sometimes GitHub API rate limits. Refresh in a minute, or open your GitHub profile directly."
-            ])
-          ])
-        );
-        console.error(err);
-      }
-    })();
+   
+    
   </script>
 </body>
 </html>
